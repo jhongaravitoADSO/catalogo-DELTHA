@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Productos DELTHA</title>
+    <link rel="icon" href="imagenes/deltha.jpg" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            position: relative;
+            padding: 1.5rem 2rem;
+            background: #444;
+            color: #fff;
+        }
+
+        header h1 {
+            margin: 0;
+            text-align: center;
+        }
+
+        .menu-container {
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+        }
+
+        .menu-toggle {
+            background: #fff;
+            color: #444;
+            border: none;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .menu-toggle:hover {
+            background: #e5e5e5;
+        }
+
+        .menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+            min-width: 150px;
+        }
+
+        .menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            transition: background 0.3s;
+        }
+
+        .menu a:hover {
+            background: #f1f1f1;
+        }
+
+        .menu a:last-child {
+            border-bottom: none;
+        }
+
+        .catalog {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .product {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            text-align: center;
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 1rem;
+        }
+
+        .product h2 {
+            font-size: 1.8rem;
+            margin: 0.5rem 0;
+            color: #444;
+        }
+
+        .product p {
+            font-size: 1rem;
+            color: #555;
+            margin: 0.5rem 0 1rem;
+        }
+
+        .product .price {
+            font-weight: bold;
+            color: #b12704;
+            margin: 1rem 0;
+            font-size: 1.5rem;
+        }
+
+        .product .contact {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .product .contact:hover {
+            background-color: #333;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: #222;
+            color: white;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Catálogo de Productos DELTHA</h1>
+        <div class="menu-container">
+            <button class="menu-toggle">Contacto</button>
+            <div class="menu">
+                <a href="https://wa.me/+573212239526" target="_blank">WhatsApp</a>
+                <a href="tel:+573203761801">Llamar</a>
+                <a href="mailto:jhongaravito10@gmail.com">Correo</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="catalog" id="productCatalog"></div>
+    </main>
+
+    <footer>
+        &copy; 2025 DELTHA. Todos los derechos reservados.
+    </footer>
+
+    <script>
+        const products = [
+            { id: 1, name: "Reloj de lujo Bubble", price: "$110.000", description: "Para hombre, cronógrafo de cuarzo con esfera grande hueca.", image: "imagenes/WhatsApp Image 2025-01-01 at 10.33.06 AM.jpeg" },
+            { id: 2, name: "Reloj automático LONGUX", price: "$200.000", description: "Diseño elegante para cualquier ocasión, acero inoxidable y resistente al agua.", image: "imagenes/WhatsApp Image 2025-01-01 at 11.40.25 AM.jpeg" },
+            { id: 3, name: "Reloj + Pulsera + Collar", price: "$110.000", description: "Reloj de cuarzo Romano para hombre, pulsera de aleación, collar con cruz.", image: "imagenes/WhatsApp Image 2025-01-01 at 10.33.07 AM (1).jpeg" },
+            { id: 4, name: "Reloj profesional VOOM", price: "$170.000", description: "De negocios de acero inoxidable para hombre, cronógrafo de lujo con brillo nocturno doble calendario, resistente.", image: "imagenes/WhatsApp Image 2025-01-01 at 10.33.06 AM (2).jpeg" },
+            { id: 5, name: "Reloj GENEVA", price: "$90.000", description: "Reloj Geneva de cuarzo con correa de malla de acero inoxidable negro de lujo con pulsera para hombre, resistente combos.", image: "imagenes/WhatsApp Image 2025-01-01 at 10.33.07 AM.jpeg" }
+        ];
+
+        const catalog = document.getElementById("productCatalog");
+
+        products.forEach(product => {
+            const productElement = document.createElement("div");
+            productElement.classList.add("product");
+
+            productElement.innerHTML = `
+                <img src="${product.image}" alt="Imagen de ${product.name}">
+                <h2>${product.name}</h2>
+                <p>${product.description}</p>
+                <div class="price">${product.price}</div>
+                <a href="https://wa.me/+573212239526?text=Estoy%20interesado%20en%20${encodeURIComponent(product.name)}" class="contact">Contactar por WhatsApp</a>
+            `;
+
+            catalog.appendChild(productElement);
+        });
+
+        // Lógica del menú desplegable
+        const menuToggle = document.querySelector('.menu-toggle');
+        const menu = document.querySelector('.menu');
+
+        menuToggle.addEventListener('click', () => {
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!menu.contains(event.target) && !menuToggle.contains(event.target)) {
+                menu.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
